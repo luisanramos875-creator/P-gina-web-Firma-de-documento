@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir y Firmar Documento</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Subir Documento</h1>
+
+        <!-- SUBIR DOCUMENTO -->
+        <form id="formDocumento">
+
+            <input 
+                type="file" 
+                id="archivo" 
+                accept=".pdf"
+                required
+            >
+
+            <button type="submit">
+                Mostrar Documento
+            </button>
+
+        </form>
+
+        <!-- VISTA PREVIA -->
+        <div id="documentoVista">
+
+            <h2>Vista Previa del Documento</h2>
+
+            <iframe id="visorPDF"></iframe>
+
+            <!-- FIRMA -->
+            <div class="firma">
+
+                <h2>Firma Digital</h2>
+
+                <input 
+                    type="text"
+                    id="firma"
+                    placeholder="Escriba su nombre completo"
+                >
+
+                <button onclick="firmarDocumento()">
+                    Firmar Documento
+                </button>
+
+                <p id="resultado"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // MOSTRAR DOCUMENTO
+        document.getElementById("formDocumento")
+        .addEventListener("submit", function(event){
+
+            event.preventDefault();
+
+            let archivo =
+            document.getElementById("archivo").files[0];
+
+            if(archivo){
+
+                // CREAR URL TEMPORAL DEL PDF
+                let urlArchivo = URL.createObjectURL(archivo);
+
+                // MOSTRAR PDF
+                document.getElementById("visorPDF").src =
+                urlArchivo;
+
+                // MOSTRAR SECCIÓN
+                document.getElementById("documentoVista")
+                .style.display = "block";
+
+            }
+
+        });
+
+        // FIRMAR DOCUMENTO
+        function firmarDocumento(){
+
+            let firma = 
+            document.getElementById("firma").value;
+
+            let resultado =
+            document.getElementById("resultado");
+
+            if(firma === ""){
+
+                resultado.innerHTML =
+                "Debe escribir su nombre";
+                resultado.style.color = "red";
+
+            }else{
+
+                resultado.innerHTML =
+                "Documento firmado por " + firma;
+                resultado.style.color = "green";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
