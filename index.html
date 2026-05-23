@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,21 +9,103 @@
 </head>
 <body>
 
-    <div class="login">
+    <div class="contenedor">
 
-        <h1>Iniciar Sesión</h1>
+        <!-- LOGIN -->
+        <div id="login">
 
-        <form id="loginForm">
+            <h1>Iniciar Sesión</h1>
 
-            <input type="text" id="usuario" placeholder="Usuario" required>
+            <form id="loginForm">
 
-            <input type="password" id="password" placeholder="Contraseña" required>
+                <input 
+                    type="text" 
+                    id="usuarioLogin" 
+                    placeholder="Usuario" 
+                    required
+                >
 
-            <button type="submit">Ingresar</button>
+                <div class="password-container">
 
-        </form>
+                    <input 
+                        type="password" 
+                        id="passwordLogin" 
+                        placeholder="Contraseña" 
+                        required
+                    >
 
-        <p id="mensaje"></p>
+                    <span onclick="togglePassword('passwordLogin', this)">
+                        👁
+                    </span>
+
+                </div>
+
+                <button type="submit">Ingresar</button>
+
+            </form>
+
+            <p id="mensajeLogin"></p>
+
+            <div class="crear-cuenta">
+
+                <p>
+                    ¿No tienes una cuenta?
+                    <span onclick="mostrarRegistro()">
+                        Crear cuenta
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- REGISTRO -->
+        <div id="registro" style="display: none;">
+
+            <h1>Crear Cuenta</h1>
+
+            <form id="registroForm">
+
+                <input 
+                    type="text" 
+                    id="nuevoUsuario" 
+                    placeholder="Nuevo usuario" 
+                    required
+                >
+
+                <div class="password-container">
+
+                    <input 
+                        type="password" 
+                        id="nuevoPassword" 
+                        placeholder="Nueva contraseña" 
+                        required
+                    >
+
+                    <span onclick="togglePassword('nuevoPassword', this)">
+                        👁
+                    </span>
+
+                </div>
+
+                <button type="submit">Crear Cuenta</button>
+
+            </form>
+
+            <p id="mensajeRegistro"></p>
+
+            <div class="crear-cuenta">
+
+                <p>
+                    ¿Ya tienes una cuenta?
+                    <span onclick="mostrarLogin()">
+                        Iniciar sesión
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 

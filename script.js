@@ -1,26 +1,87 @@
+// MOSTRAR LOGIN
+function mostrarLogin(){
+
+    document.getElementById("login").style.display = "block";
+    document.getElementById("registro").style.display = "none";
+
+}
+
+// MOSTRAR REGISTRO
+function mostrarRegistro(){
+
+    document.getElementById("login").style.display = "none";
+    document.getElementById("registro").style.display = "block";
+
+}
+
+// MOSTRAR / OCULTAR CONTRASEÑA
+function togglePassword(idInput, icono){
+
+    const input = document.getElementById(idInput);
+
+    if(input.type === "password"){
+
+        input.type = "text";
+        icono.textContent = "🙈";
+
+    }else{
+
+        input.type = "password";
+        icono.textContent = "👁";
+
+    }
+
+}
+
+// CREAR USUARIO
+const registroForm = document.getElementById("registroForm");
+
+registroForm.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    let usuario = document.getElementById("nuevoUsuario").value;
+
+    let password = document.getElementById("nuevoPassword").value;
+
+    // GUARDAR DATOS
+    localStorage.setItem("usuario", usuario);
+    localStorage.setItem("password", password);
+
+    let mensaje = document.getElementById("mensajeRegistro");
+
+    mensaje.innerHTML = "Cuenta creada correctamente";
+    mensaje.style.color = "green";
+
+    registroForm.reset();
+
+});
+
+// INICIAR SESIÓN
 const loginForm = document.getElementById("loginForm");
 
 loginForm.addEventListener("submit", function(event){
 
     event.preventDefault();
 
-    let usuario = document.getElementById("usuario").value;
-    let password = document.getElementById("password").value;
-    let mensaje = document.getElementById("mensaje");
+    let usuario = document.getElementById("usuarioLogin").value;
 
-    // Usuario y contraseña
+    let password = document.getElementById("passwordLogin").value;
 
-    let usuarioCorrecto="Luis";
-    let passwordCorrecta="1234";
+    let usuarioGuardado = localStorage.getItem("usuario");
 
-    if(usuario === usuarioCorrecto && password === passwordCorrecta){
+    let passwordGuardada = localStorage.getItem("password");
+
+    let mensaje = document.getElementById("mensajeLogin");
+
+    if(usuario === usuarioGuardado && password === passwordGuardada){
 
         mensaje.innerHTML = "Inicio de sesión correcto";
         mensaje.style.color = "green";
 
-        // Ir a la otra página
         setTimeout(() => {
 
+            // CAMBIAR POR TU PÁGINA
             window.location.href = "DocFirma.html";
 
         }, 1000);
@@ -33,4 +94,3 @@ loginForm.addEventListener("submit", function(event){
     }
 
 });
-

@@ -1,117 +1,160 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir y Firmar Documento</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Firma Digital</title>
+
     <link rel="stylesheet" href="estilos.css">
+
+    <!-- PDF-LIB -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+    <!-- PDF.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
 </head>
+
 <body>
 
     <div class="contenedor">
 
-        <h1>Subir Documento</h1>
+        <!-- MENÚ -->
+        <div id="menuPrincipal">
 
-        <!-- SUBIR DOCUMENTO -->
-        <form id="formDocumento">
+            <h1>Menú Principal</h1>
 
-            <input 
-                type="file" 
-                id="archivo" 
-                accept=".pdf"
-                required
-            >
+            <div class="menu">
 
-            <button type="submit">
-                Mostrar Documento
-            </button>
+                <button onclick="abrirOpcion('firmar')">
 
-        </form>
-
-        <!-- VISTA PREVIA -->
-        <div id="documentoVista">
-
-            <h2>Vista Previa del Documento</h2>
-
-            <iframe id="visorPDF"></iframe>
-
-            <!-- FIRMA -->
-            <div class="firma">
-
-                <h2>Firma Digital</h2>
-
-                <input 
-                    type="text"
-                    id="firma"
-                    placeholder="Escriba su nombre completo"
-                >
-
-                <button onclick="firmarDocumento()">
                     Firmar Documento
+
                 </button>
 
-                <p id="resultado"></p>
+                <button onclick="abrirOpcion('crear')">
+
+                    Crear Firma
+
+                </button>
 
             </div>
 
         </div>
 
+        <!-- ================================= -->
+        <!-- OPCIÓN FIRMAR -->
+        <!-- ================================= -->
+
+        <div
+            id="opcionFirmar"
+            style="display: none;"
+        >
+
+            <button
+                class="volver"
+                onclick="volverMenu()"
+            >
+
+                ← Volver al menú
+
+            </button>
+
+            <h1>Firmar Documento</h1>
+
+            <!-- PDF -->
+            <input
+                type="file"
+                id="archivoPDF"
+                accept=".pdf"
+            >
+
+            <!-- BUSCAR -->
+            <input
+                type="text"
+                id="buscarFirma"
+                placeholder="Buscar usuario"
+                onkeyup="buscarFirmas()"
+            >
+
+            <!-- RESULTADOS -->
+            <div id="resultadoBusqueda"></div>
+
+            <!-- BOTÓN -->
+            <button onclick="firmarDocumento()">
+
+                Firmar Documento
+
+            </button>
+
+            <p id="mensajep1"></p>
+
+        </div>
+
+        <!-- ================================= -->
+        <!-- OPCIÓN CREAR -->
+        <!-- ================================= -->
+
+        <div
+            id="opcionCrear"
+            style="display: none;"
+        >
+
+            <button
+                class="volver"
+                onclick="volverMenu()"
+            >
+
+                ← Volver al menú
+
+            </button>
+
+            <h1>Crear Firma</h1>
+
+            <!-- NOMBRE -->
+            <input
+                type="text"
+                id="nombreUsuario"
+                placeholder="Ingrese su nombre"
+            >
+
+            <!-- CANVAS -->
+            <canvas id="canvasFirma"></canvas>
+
+            <!-- BOTONES -->
+            <div class="botonesFirma">
+
+                <button onclick="limpiarCanvas()">
+
+                    Limpiar Firma
+
+                </button>
+
+                <button onclick="guardarFirma()">
+
+                    Guardar Firma
+
+                </button>
+
+            </div>
+
+            <p id="mensaje"></p>
+
+        </div>
+
     </div>
 
-    <script>
-
-        // MOSTRAR DOCUMENTO
-        document.getElementById("formDocumento")
-        .addEventListener("submit", function(event){
-
-            event.preventDefault();
-
-            let archivo =
-            document.getElementById("archivo").files[0];
-
-            if(archivo){
-
-                // CREAR URL TEMPORAL DEL PDF
-                let urlArchivo = URL.createObjectURL(archivo);
-
-                // MOSTRAR PDF
-                document.getElementById("visorPDF").src =
-                urlArchivo;
-
-                // MOSTRAR SECCIÓN
-                document.getElementById("documentoVista")
-                .style.display = "block";
-
-            }
-
-        });
-
-        // FIRMAR DOCUMENTO
-        function firmarDocumento(){
-
-            let firma = 
-            document.getElementById("firma").value;
-
-            let resultado =
-            document.getElementById("resultado");
-
-            if(firma === ""){
-
-                resultado.innerHTML =
-                "Debe escribir su nombre";
-                resultado.style.color = "red";
-
-            }else{
-
-                resultado.innerHTML =
-                "Documento firmado por " + firma;
-                resultado.style.color = "green";
-
-            }
-
-        }
-
-    </script>
+    <!-- TU JS -->
+    <script src="firmas.js/firma.js"></script>
 
 </body>
+
 </html>
